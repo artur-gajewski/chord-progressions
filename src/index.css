@@ -53,6 +53,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+select {
+    background-color: #242424;
+    color: #fff;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.87);
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-family: inherit;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
