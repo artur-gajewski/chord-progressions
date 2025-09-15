@@ -1,16 +1,17 @@
 import { useState } from "react";
-import "./index.css";
 import { KEYS, STYLES } from "./data";
 import { transposeProgression } from "./utils/transpose";
-
-type ProgSet = { verse: string[][]; chorus: string[][] };
+import "./index.css";
 
 export default function App() {
     const styleNames = Object.keys(STYLES);
-    const [selectedKey, setSelectedKey] = useState<string>(KEYS[0] ?? "C");
-    const [selectedStyle, setSelectedStyle] = useState<string>(styleNames[0] ?? "rock");
+    const [selectedKey, setSelectedKey] = useState(KEYS[0]);
+    const [selectedStyle, setSelectedStyle] = useState(styleNames[0]);
 
-    const styleProgressions: ProgSet = STYLES[selectedStyle];
+    // Get current style progressions
+    const styleProgressions = STYLES[selectedStyle];
+
+    // Transpose each progression to the selected key
     const verseChords = styleProgressions.verse.map(p => transposeProgression(p, selectedKey));
     const chorusChords = styleProgressions.chorus.map(p => transposeProgression(p, selectedKey));
 
@@ -20,28 +21,26 @@ export default function App() {
 
             <div className="selectors">
                 <div>
-                    <label htmlFor="key-select">Key</label>
-                    <br />
+                    <label htmlFor="key-select">Key</label><br/>
                     <select
                         id="key-select"
                         value={selectedKey}
-                        onChange={(e) => setSelectedKey(e.target.value)}
+                        onChange={e => setSelectedKey(e.target.value)}
                     >
-                        {KEYS.map((k) => (
+                        {KEYS.map(k => (
                             <option key={k} value={k}>{k}</option>
                         ))}
                     </select>
                 </div>
 
                 <div>
-                    <label htmlFor="style-select">Style</label>
-                    <br />
+                    <label htmlFor="style-select">Style</label><br/>
                     <select
                         id="style-select"
                         value={selectedStyle}
-                        onChange={(e) => setSelectedStyle(e.target.value)}
+                        onChange={e => setSelectedStyle(e.target.value)}
                     >
-                        {styleNames.map((s) => (
+                        {styleNames.map(s => (
                             <option key={s} value={s}>{s.toUpperCase()}</option>
                         ))}
                     </select>
