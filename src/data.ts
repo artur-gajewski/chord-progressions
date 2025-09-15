@@ -1,13 +1,15 @@
-export type ProgressionSet = {
-    verse: string[][];
-    chorus: string[][];
-};
+export const MAJOR_KEYS = [
+    "C", "C#", "Db", "D", "D#", "Eb", "E", "F",
+    "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B",
+];
 
-export type StyleProgressions = {
-    [style: string]: ProgressionSet;
-};
+export const MINOR_KEYS = MAJOR_KEYS.map(k => `${k}m`);
+export const KEYS = [...MAJOR_KEYS, ...MINOR_KEYS];
 
-export const chordProgressions: StyleProgressions = {
+/**
+ * Progressions are in Roman numerals (I, vi, iv, i, bVII, etc.)
+ */
+export const STYLES: Record<string, { verse: string[][]; chorus: string[][] }> = {
     ballad: {
         verse: [
             ["I", "vi", "IV", "V"],
@@ -24,6 +26,7 @@ export const chordProgressions: StyleProgressions = {
             ["IV", "I", "V", "vi"],
         ],
     },
+
     rock: {
         verse: [
             ["I", "bVII", "IV"],
@@ -40,6 +43,7 @@ export const chordProgressions: StyleProgressions = {
             ["I", "IV", "I", "V"],
         ],
     },
+
     country: {
         verse: [
             ["I", "IV", "V"],
@@ -56,6 +60,7 @@ export const chordProgressions: StyleProgressions = {
             ["I", "IV", "V", "vi"],
         ],
     },
+
     rnb: {
         verse: [
             ["ii", "V", "I"],
@@ -72,6 +77,7 @@ export const chordProgressions: StyleProgressions = {
             ["IV", "V", "vi", "I"],
         ],
     },
+
     punk: {
         verse: [
             ["I", "IV", "V"],
@@ -88,6 +94,7 @@ export const chordProgressions: StyleProgressions = {
             ["vi", "IV", "I", "V"],
         ],
     },
+
     metal: {
         verse: [
             ["i", "bVI", "bVII"],

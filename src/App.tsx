@@ -1,49 +1,76 @@
 import { useState } from "react";
-import "./App.css";
-import { scales, minorScales, type Scale, musicStyles } from "./data/scale";
-import ScaleSelector from "./components/ScaleSelector";
-import ChordProgressions from "./components/ChordProgressions";
+import "./index.css";
+import { KEYS, STYLES } from "./data";
+import { transposeProgression } from "./utils/transpose";
 
-function App() {
-  const [selectedScale, setSelectedScale] = useState<Scale | null>(null);
-  const [selectedStyle, setSelectedStyle] = useState<string>("");
+type ProgSet = { verse: string[][]; chorus: string[][] };
 
-  const allScales = [...scales, ...minorScales];
+export default function App() {
+    const styleNames = Object.keys(STYLES);
+    const [selectedKey, setSelectedKey] = useState<string>(KEYS[0] ?? "C");
+    const [selectedStyle, setSelectedStyle] = useState<string>(styleNames[0] ?? "rock");
 
-  return (
-    <div className="App" style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <ScaleSelector
-        scales={allScales}
-        selectedScale={selectedScale}
-        onSelect={setSelectedScale}
-      />
+    const styleProgressions: ProgSet = STYLES[selectedStyle];
+    const verseChords = styleProgressions.verse.map(p => transposeProgression(p, selectedKey));
+    const chorusChords = styleProgressions.chorus.map(p => transposeProgression(p, selectedKey));
 
-      <div style={{ marginTop: "1rem" }}>
-        <select
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            borderRadius: "4px",
-            fontSize: "1rem",
-          }}
-          id="style"
-          value={selectedStyle}
-          onChange={(e) => setSelectedStyle(e.target.value)}
-        >
-          <option value="">--Choose style--</option>
-          {musicStyles.map((style) => (
-            <option key={style.name} value={style.name}>
-              {style.name}
-            </option>
-          ))}
-        </select>
-      </div>
+    return (
+        <div className="app">
+            <h1>Chord Progression Generator</h1>
 
-      {selectedScale && selectedStyle && (
-        <ChordProgressions scale={selectedScale} styleName={selectedStyle} />
-      )}
-    </div>
-  );
+            <div className="selectors">
+                <div>
+                    <label htmlFor="key-select">Key</label>
+                    <br />
+                    <select
+                        id="key-select"
+                        value={selectedKey}
+                        onChange={(e) => setSelectedKey(e.target.value)}
+                    >
+                        {KEYS.map((k) => (
+                            <option key={k} value={k}>{k}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div>
+                    <label htmlFor="style-select">Style</label>
+                    <br />
+                    <select
+                        id="style-select"
+                        value={selectedStyle}
+                        onChange={(e) => setSelectedStyle(e.target.value)}
+                    >
+                        {styleNames.map((s) => (
+                            <option key={s} value={s}>{s.toUpperCase()}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            <div className="progressions">
+                <div className="progression-card">
+                    <div className="progression-title">Verse Progressions</div>
+                    {verseChords.map((prog, idx) => (
+                        <div key={idx} className="chords">
+                            {prog.map((ch, cIdx) => (
+                                <div key={cIdx} className="chord">{ch}</div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+
+                <div className="progression-card">
+                    <div className="progression-title">Chorus Progressions</div>
+                    {chorusChords.map((prog, idx) => (
+                        <div key={idx} className="chords">
+                            {prog.map((ch, cIdx) => (
+                                <div key={cIdx} className="chord">{ch}</div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 }
-
-export default App;
