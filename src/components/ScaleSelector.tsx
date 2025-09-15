@@ -15,7 +15,12 @@ const ScaleSelector: React.FC<Props> = ({
   return (
     <div>
       <select
-        style={{ fontSize: "1rem", padding: "0.5rem", borderRadius: "4px" }}
+        style={{
+          width: "100%",
+          padding: "0.5rem",
+          borderRadius: "4px",
+          fontSize: "1rem",
+        }}
         id="scale"
         value={selectedScale?.name || ""}
         onChange={(e) => {

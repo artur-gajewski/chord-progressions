@@ -5,7 +5,12 @@ export interface Scale {
   chords: Chord[];
 }
 
-// 12 Major Keys
+export interface MusicStyle {
+  name: string;
+  progressions: string[][];
+}
+
+// All 12 major scales
 export const scales: Scale[] = [
   { name: 'C Major', chords: ['C', 'Dm', 'Em', 'F', 'G', 'Am', 'Bdim'] },
   { name: 'G Major', chords: ['G', 'Am', 'Bm', 'C', 'D', 'Em', 'F#dim'] },
@@ -37,10 +42,66 @@ export const minorScales: Scale[] = [
   { name: 'F Minor', chords: ['Fm', 'Gdim', 'Ab', 'Bbm', 'Cm', 'Db', 'Eb'] },
 ];
 
-export const commonProgressions = [
-  ['I', 'IV', 'V', 'I'],
-  ['I', 'V', 'vi', 'IV'],
-  ['ii', 'V', 'I'],
-  ['vi', 'IV', 'I', 'V'],
-  ['I', 'vi', 'IV', 'V'],
+// Music styles with common progressions
+export const musicStyles: MusicStyle[] = [
+  {
+    name: 'Ballad',
+    progressions: [
+      ['I', 'V', 'vi', 'IV'],
+      ['vi', 'IV', 'I', 'V'],
+      ['I', 'IV', 'V', 'I'],
+      ['ii', 'V', 'I'],
+      ['I', 'vi', 'IV', 'V'],
+    ],
+  },
+  {
+    name: 'Rock',
+    progressions: [
+      ['I', 'IV', 'V', 'I'],
+      ['I', 'V', 'vi', 'IV'],
+      ['vi', 'IV', 'V', 'I'],
+      ['I', 'V', 'IV', 'I'],
+      ['I', 'bVII', 'IV', 'I'],
+    ],
+  },
+  {
+    name: 'Country',
+    progressions: [
+      ['I', 'IV', 'V', 'I'],
+      ['I', 'vi', 'IV', 'V'],
+      ['I', 'V', 'vi', 'IV'],
+      ['I', 'IV', 'I', 'V'],
+      ['vi', 'IV', 'I', 'V'],
+    ],
+  },
+  {
+    name: 'R&B',
+    progressions: [
+      ['ii', 'V', 'I', 'vi'],
+      ['I', 'vi', 'IV', 'V'],
+      ['I', 'IV', 'vi', 'V'],
+      ['vi', 'IV', 'I', 'V'],
+      ['I', 'V', 'vi', 'IV'],
+    ],
+  },
+  {
+    name: 'Punk',
+    progressions: [
+      ['I', 'IV', 'V', 'I'],
+      ['I', 'V', 'IV', 'I'],
+      ['vi', 'IV', 'I', 'V'],
+      ['I', 'bVII', 'IV', 'I'],
+      ['I', 'IV', 'vi', 'V'],
+    ],
+  },
+  {
+    name: 'Metal',
+    progressions: [
+      ['i', 'VI', 'III', 'VII'],
+      ['i', 'VII', 'VI', 'i'],
+      ['i', 'iv', 'v', 'i'],
+      ['i', 'III', 'VII', 'VI'],
+      ['i', 'VI', 'iv', 'v'],
+    ],
+  },
 ];
