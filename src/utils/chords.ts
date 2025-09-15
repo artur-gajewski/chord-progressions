@@ -1,4 +1,4 @@
-import { type Scale, commonProgressions } from '../data/scale';
+import { type Scale } from '../data/scale';
 
 const romanNumeralMap: Record<string, number> = {
   I: 0,
@@ -12,8 +12,4 @@ const romanNumeralMap: Record<string, number> = {
 
 export const getChordsFromProgression = (scale: Scale, progression: string[]) => {
   return progression.map(step => scale.chords[romanNumeralMap[step]]);
-};
-
-export const getAllProgressionsForScale = (scale: Scale) => {
-  return commonProgressions.map(prog => getChordsFromProgression(scale, prog));
 };
