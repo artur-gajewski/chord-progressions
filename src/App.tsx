@@ -10,7 +10,10 @@ function App() {
   const allScales = [...scales, ...minorScales];
 
   return (
-    <div className="App" style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+    <div
+      className="App"
+      style={{ padding: "2rem", paddingTop: 0, fontFamily: "sans-serif" }}
+    >
       <h2>Chord Progressions</h2>
       <ScaleSelector
         scales={allScales}
