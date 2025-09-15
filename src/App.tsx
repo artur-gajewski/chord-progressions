@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { scales, minorScales, type Scale } from "./data/scale";
 import ScaleSelector from "./components/ScaleSelector";
